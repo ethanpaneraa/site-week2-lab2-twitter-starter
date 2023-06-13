@@ -7,7 +7,7 @@ import { codepathUserProfile, firstTweet, navLinks } from "./constants"
 export default function App() {
   return (
     <div className="app">
-      <Navbar />
+      <Navbar navLinks={navLinks} />
       <main>
         <UserProfile />
         <Feed />
