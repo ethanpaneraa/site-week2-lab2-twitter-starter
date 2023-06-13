@@ -3,6 +3,10 @@ import "./TweetBox.css"
 
 export default function TweetBox(props) {
 
+  const MAX_NUM_OF_CHARACTERS = 140; 
+
+  const isTweetValid = ((props.tweetText.length > 0) && (props.tweetText.length <= MAX_NUM_OF_CHARACTERS)); 
+
   const handleOnTweetTextChange = (event) => {
     props.setTweetText(event.target.value); 
   }
@@ -28,8 +32,8 @@ export default function TweetBox(props) {
 
       <div className="tweet-box-footer">
         <TweetBoxIcons />
-        <TweetCharacterCount />
-        <TweetSubmitButton handleOnSubmit={handleOnSubmit} />
+        <TweetCharacterCount totalCharacters={props.tweetText.length} />
+        <TweetSubmitButton handleOnSubmit={handleOnSubmit} canSubmitTweet={isTweetValid}/>
       </div>
     </div>
   )
@@ -48,14 +52,18 @@ export function TweetBoxIcons() {
 
 export function TweetCharacterCount(props) {
   // ADD CODE HERE
-  return <span></span>
+  const MAX_CHARACTERS = 140;
+
+  let charsLeft = MAX_CHARACTERS - props.totalCharacters;
+
+  return charsLeft >= MAX_CHARACTERS ? <span></span> : <span>{charsLeft}</span>
 }
 
 export function TweetSubmitButton(props) {
   return (
     <div className="tweet-submit">
       <i className="fas fa-plus-circle"></i>
-      <button className="tweet-submit-button" onClick={props.handleOnSubmit}>Tweet</button>
+      <button className="tweet-submit-button" onClick={props.handleOnSubmit} disabled={props.canSubmitTweet}>Tweet</button>
     </div>
   )
 }
