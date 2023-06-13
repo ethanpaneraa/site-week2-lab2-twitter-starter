@@ -8,13 +8,16 @@ import { useState } from "react"
 export default function App() {
 
   const [userProfile, setUserProfile] = useState(codepathUserProfile); 
+  const [tweets, setTweets] = useState([firstTweet]); 
+
+
 
   return (
     <div className="app">
       <Navbar navLinks={navLinks} />
       <main>
         <UserProfile userProfile={userProfile} />
-        <Feed />
+        <Feed userProfile={userProfile} tweets={tweets} setTweets={setTweets}/>
         <Advertisements />
       </main>
     </div>
